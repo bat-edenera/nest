@@ -1,6 +1,6 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 import { ContractEntity } from '../contract.entity';
-@Entity('conItem')
+@Entity('contractItem')
 export class ContractItemEntity {
   @PrimaryGeneratedColumn()
   id: number;

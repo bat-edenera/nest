@@ -3,7 +3,7 @@ import { ContractService } from './contract.service';
 import { ContractController } from './contract.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ContractEntity } from './contract.entity';
-import { ContractItemEntity } from './conitems/conitems.entity';
+import { ContractItemEntity } from './items/items.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([ContractEntity, ContractItemEntity])],

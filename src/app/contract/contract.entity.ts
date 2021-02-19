@@ -1,6 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 import { InvoiceEntity } from '../invoice/invoice.entity';
-import { ContractItemEntity } from './conitems/conitems.entity';
+import { ContractItemEntity } from './items/items.entity';
 @Entity('contract')
 export class ContractEntity {
   @PrimaryGeneratedColumn()
@@ -16,5 +16,5 @@ export class ContractEntity {
   items: ContractItemEntity[];
 
   @OneToMany((type) => InvoiceEntity, (invoice) => invoice.contract)
-  invoices: ContractItemEntity[];
+  invoices: InvoiceEntity[];
 }
