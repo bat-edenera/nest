@@ -1,27 +1,24 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateInvoiceDto } from './dto/create-invoice.dto';
-import { Invoice } from './invoice.entity';
+import { InvoiceEntity } from './invoice.entity';
 
 @Injectable()
 export class InvoiceService {
   constructor(
-    @InjectRepository(Invoice)
-    private readonly InvoiceRepository: Repository<Invoice>,
+    @InjectRepository(InvoiceEntity)
+    private readonly InvoiceRepository: Repository<InvoiceEntity>,
   ) { }
 
-  create(createInvoiceDto: CreateInvoiceDto): Promise<Invoice> {
-    var invoice = new Invoice();
-    invoice = { ...createInvoiceDto, id: undefined };
+  create(invoice): Promise<InvoiceEntity> {
     return this.InvoiceRepository.save(invoice);
   }
 
-  async findAll(): Promise<Invoice[]> {
+  async findAll(): Promise<InvoiceEntity[]> {
     return this.InvoiceRepository.find();
   }
 
-  findOne(id: string): Promise<Invoice> {
+  findOne(id: string): Promise<InvoiceEntity> {
     return this.InvoiceRepository.findOne(id);
   }
 

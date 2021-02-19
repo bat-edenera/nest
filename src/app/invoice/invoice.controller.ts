@@ -1,38 +1,40 @@
-import { Body, Controller, Delete, Get, Param, Post, UseInterceptors, UploadedFile } from '@nestjs/common';
+/// <refrence path="../../shared/AipOcrClient/index.d.ts" />;
+import { Body, Controller, Delete, Get, Param, Post, UseInterceptors, UploadedFile, HttpStatus, HttpException } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { CreateInvoiceDto } from './dto/create-invoice.dto';
-import { Invoice } from './invoice.entity';
+import { InvoiceEntity } from './invoice.entity';
 import { InvoiceService } from './invoice.service';
-import AipOcr from '../../shared/utils/AipOcrClient';
+const OcrClient = require('../../shared/AipOcrClient');
 
 @Controller('invoice')
 export class InvoiceController {
-  constructor(
-    private readonly invoiceService: InvoiceService,
-    private ocrClient: AipOcr
-  ) {
-    this.ocrClient = new AipOcr()
-  }
+  constructor(private readonly invoiceService: InvoiceService) { }
 
   @Post('upload')
   @UseInterceptors(FileInterceptor('file'))
   async uploadFile(@UploadedFile() file) {
-    let result = [await this.ocrClient.vatInvoice(file.buffer.toString('base64'))];
-    return result
+    try {
+      console.log(file)
+      let result = await OcrClient.vatInvoice(file.buffer.toString('base64'));
+      if (result.error_code) {
+        throw new HttpException(result.error_msg, HttpStatus.BAD_REQUEST);
+      }
+      return result
+
+    } catch (e) { }
   }
 
   @Post()
-  create(@Body() CreateInvoiceDto: CreateInvoiceDto): Promise<Invoice> {
+  create(@Body() CreateInvoiceDto): Promise<InvoiceEntity> {
     return this.invoiceService.create(CreateInvoiceDto);
   }
 
   @Get()
-  findAll(): Promise<Invoice[]> {
+  findAll(): Promise<InvoiceEntity[]> {
     return this.invoiceService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string): Promise<Invoice> {
+  findOne(@Param('id') id: string): Promise<InvoiceEntity> {
     return this.invoiceService.findOne(id);
   }
 

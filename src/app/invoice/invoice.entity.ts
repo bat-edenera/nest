@@ -1,31 +1,34 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryColumn, OneToMany, ManyToOne } from 'typeorm';
+import { ContractEntity } from '../contract/contract.entity';
+import { CommodityEntity } from './commodity/commodity.entity';
 
-@Entity()
-export class Invoice {
-  @PrimaryGeneratedColumn()
+@Entity('invoice')
+export class InvoiceEntity {
+  //发票代码
+  @PrimaryColumn()
   id: number;
 
   @Column()
-  amount: string;
-
-  @Column()
-  name: string;
-
-  @Column()
-  type: string;
-
-  @Column()
-  tax: string;
+  date: string;
 
   @Column()
   num: string;
 
   @Column()
-  taxRate: string;
+  type: string;
 
   @Column()
-  unit: string;
+  sellerName: string;
 
   @Column()
-  price: string;
+  purchaserName: string;
+
+  @Column({ type: 'timestamp', default: () => "CURRENT_TIMESTAMP" })
+  created: Date;
+
+  @OneToMany((type) => CommodityEntity, (item) => item.invoice)
+  items: CommodityEntity[];
+
+  @ManyToOne((type) => ContractEntity, contract => contract.invoices)
+  contract: ContractEntity
 }
