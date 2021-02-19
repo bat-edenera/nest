@@ -1,8 +1,11 @@
-import { Column, Entity } from 'typeorm'
-// import BaseEntity from '../../shared/utils/baseEntity'
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import BaseEntity from '../../shared/utils/base.entity'
 
 @Entity('storage')
-export class StorageEntity {
+export class StorageEntity extends BaseEntity {
+  @PrimaryGeneratedColumn()
+  id: number;
+
   @Column()
   name: string;
 
@@ -13,7 +16,7 @@ export class StorageEntity {
   remark: string;
 
   @Column()
-  createDate: Date;
+  createTime: Date;
 
   @Column()
   creator: string;

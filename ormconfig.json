@@ -4,9 +4,9 @@
   "port": 3306,
   "username": "root",
   "password": "123456",
-  "database": "mydata",
+  "database": "test",
   "entities": [
-    "src/**/*.entity{.ts,.js}"
+    "dist/app/**/*.entity.{ts,js}"
   ],
   "synchronize": true
 }
