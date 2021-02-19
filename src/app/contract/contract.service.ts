@@ -11,6 +11,6 @@ export class ContractService {
   ) { }
 
   findAll(): Promise<ContractEntity[]> {
-    return this.ContractRespositry.find();
+    return this.ContractRespositry.find({ relations: ['items'] });
   }
 }
