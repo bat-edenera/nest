@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpStatus, HttpException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ContractEntity } from './contract.entity';
@@ -11,6 +11,6 @@ export class ContractService {
   ) { }
 
   findAll(): Promise<ContractEntity[]> {
-    return this.ContractRespositry.find({ relations: ['items'] });
+    return this.ContractRespositry.find();
   }
 }

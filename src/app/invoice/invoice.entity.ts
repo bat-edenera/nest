@@ -6,29 +6,31 @@ import { Commodity } from './commodity/commodity.entity';
 export class InvoiceEntity {
   //发票代码
   @PrimaryColumn()
-  id: number;
+  id: string;
 
-  @Column()
+  @Column({ nullable: true })
   date: string;
 
-  @Column()
+  @Column({ nullable: true })
   num: string;
 
-  @Column()
+  @Column({ nullable: true })
   type: string;
 
-  @Column()
+  @Column({ nullable: true })
   sellerName: string;
 
-  @Column()
+  @Column({ nullable: true })
   purchaserName: string;
 
   @Column({ type: 'timestamp', default: () => "CURRENT_TIMESTAMP" })
   created: Date;
 
-  @OneToMany((type) => Commodity, (item) => item.invoice)
+  @OneToMany((type) => Commodity, (item) => item.invoice, {
+    cascade: ["insert"]
+  })
   items: Commodity[];
 
   @ManyToOne((type) => ContractEntity, contract => contract.invoices)
-  contract: ContractEntity[]
+  contract: ContractEntity
 }

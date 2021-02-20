@@ -4,6 +4,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { InvoiceEntity } from './invoice.entity';
 import { InvoiceService } from './invoice.service';
 const OcrClient = require('../../shared/AipOcrClient');
+const fs = require('fs');
 
 @Controller('invoice')
 export class InvoiceController {
@@ -11,15 +12,19 @@ export class InvoiceController {
 
   @Post('upload')
   @UseInterceptors(FileInterceptor('file'))
-  async uploadFile(@UploadedFile() file) {
+  async uploadFile(@UploadedFile() file, @Body('contract') contractId) {
     try {
-      console.log(file)
-      let result = await OcrClient.vatInvoice(file.buffer.toString('base64'));
+      var type = file.mimetype.split('/'), result;
+      if (type[0] === 'image') {
+        let image = fs.readFileSync(file.path).toString('base64')
+        result = await OcrClient.vatInvoice(image);
+      } else {
+        result = await OcrClient.vatInvoicePdf(file.path);
+      }
       if (result.error_code) {
         throw new HttpException(result.error_msg, HttpStatus.BAD_REQUEST);
       }
-      return result
-
+      return this.invoiceService.saveOcrResult(result, contractId)
     } catch (e) { }
   }
 
