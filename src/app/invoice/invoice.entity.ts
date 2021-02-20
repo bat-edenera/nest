@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryColumn, OneToMany, ManyToOne } from 'typeorm';
 import { ContractEntity } from '../contract/contract.entity';
-import { CommodityEntity } from './commodity/commodity.entity';
+import { Commodity } from './commodity/commodity.entity';
 
 @Entity('invoice')
 export class InvoiceEntity {
@@ -26,9 +26,9 @@ export class InvoiceEntity {
   @Column({ type: 'timestamp', default: () => "CURRENT_TIMESTAMP" })
   created: Date;
 
-  @OneToMany((type) => CommodityEntity, (item) => item.invoice)
-  items: CommodityEntity[];
+  @OneToMany((type) => Commodity, (item) => item.invoice)
+  items: Commodity[];
 
   @ManyToOne((type) => ContractEntity, contract => contract.invoices)
-  contract: ContractEntity
+  contract: ContractEntity[]
 }

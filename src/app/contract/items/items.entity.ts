@@ -1,7 +1,7 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 import { ContractEntity } from '../contract.entity';
-@Entity('contractItem')
-export class ContractItemEntity {
+@Entity()
+export class ContractItem {
   @PrimaryGeneratedColumn()
   id: number;
 

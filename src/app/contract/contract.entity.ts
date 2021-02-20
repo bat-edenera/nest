@@ -1,6 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 import { InvoiceEntity } from '../invoice/invoice.entity';
-import { ContractItemEntity } from './items/items.entity';
+import { ContractItem } from './items/items.entity';
 @Entity('contract')
 export class ContractEntity {
   @PrimaryGeneratedColumn()
@@ -12,9 +12,10 @@ export class ContractEntity {
   @Column({ type: 'timestamp', default: () => "CURRENT_TIMESTAMP" })
   created: Date;
 
-  @OneToMany((type) => ContractItemEntity, (item) => item.contract)
-  items: ContractItemEntity[];
+  @OneToMany((type) => ContractItem, (item) => item.contract)
+  items: ContractItem[];
 
   @OneToMany((type) => InvoiceEntity, (invoice) => invoice.contract)
   invoices: InvoiceEntity[];
+
 }

@@ -2,8 +2,8 @@ import { Column, Entity, PrimaryGeneratedColumn, ManyToOne } from 'typeorm'
 import { InvoiceEntity } from '../invoice.entity';
 
 
-@Entity('commodity')
-export class CommodityEntity {
+@Entity()
+export class Commodity {
   @PrimaryGeneratedColumn()
   id: number;
 
