@@ -4,7 +4,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { InvoiceEntity } from './invoice.entity';
 import { InvoiceService } from './invoice.service';
 const OcrClient = require('../../shared/AipOcrClient/AipOcrClient');
-const fs = require('fs');
+import fs from 'fs';
 
 @Controller('invoice')
 export class InvoiceController {

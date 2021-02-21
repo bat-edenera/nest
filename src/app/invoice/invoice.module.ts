@@ -7,8 +7,8 @@ import { Commodity } from './commodity/commodity.entity';
 import { MulterModule } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { ContractEntity } from '../contract/contract.entity';
-const moment = require('moment')
-const path = require('path')
+import moment from 'moment';
+import path from 'path';
 
 @Module({
   imports: [

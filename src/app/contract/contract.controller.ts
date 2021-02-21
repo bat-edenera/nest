@@ -18,7 +18,7 @@ export class ContractController {
   @UseInterceptors(FileInterceptor('file'))
   async uploadFile(@UploadedFile() file) {
     let wb = XlSX.read(file.buffer);
-    console.log('test', wb)
+    console.log('test', XlSX)
     let contract = new ContractEntity();
     contract.name = file.originalname;
     let result: any;
