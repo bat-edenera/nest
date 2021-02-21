@@ -44,19 +44,18 @@ export class InvoiceService {
     invoice.sellerName = result.SellerName;
     invoice.purchaserName = result.PurchaserName;
     invoice.items = [];
-    console.log('test', invoice)
     //
     if (result.CommodityName.length && result.CommodityName.length > 0) {
       for (let i = 0; i < result.CommodityName.length; i++) {
         let commodity = new Commodity();
-        commodity.amount = result.CommodityAmount[i].word;
-        commodity.name = result.CommodityName[i].word;
-        commodity.num = result.CommodityNum[i].word;
-        commodity.type = result.CommodityType[i].word;
-        commodity.tax = result.CommodityTax[i].word;
-        commodity.taxRate = result.CommodityTaxRate[i].word;
-        commodity.unit = result.CommodityUnit[i].word;
-        commodity.price = result.CommodityPrice[i].word;
+        commodity.amount = result.CommodityAmount[i] && result.CommodityAmount[i].word;
+        commodity.name = result.CommodityName[i] && result.CommodityName[i].word;
+        commodity.num = result.CommodityNum[i] && result.CommodityNum[i].word;
+        commodity.type = result.CommodityType[i] && result.CommodityType[i].word;
+        commodity.tax = result.CommodityTax[i] && result.CommodityTax[i].word;
+        commodity.taxRate = result.CommodityTaxRate[i] && result.CommodityTaxRate[i].word;
+        commodity.unit = result.CommodityUnit[i] && result.CommodityUnit[i].word;
+        commodity.price = result.CommodityPrice[i] && result.CommodityPrice[i].word;
         invoice.items.push(commodity)
       }
     }
