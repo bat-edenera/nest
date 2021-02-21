@@ -18,16 +18,16 @@ export class ContractItem {
   type: string;
 
   @Column({ nullable: true })
-  tax: string;
+  taxPrice: string;
 
   @Column({ nullable: true })
   num: string;
 
   @Column({ nullable: true })
-  taxRate: string;
+  date: string;
 
   @Column({ nullable: true })
-  unit: string;
+  code: string;
 
   @Column({ nullable: true })
   price: string;
