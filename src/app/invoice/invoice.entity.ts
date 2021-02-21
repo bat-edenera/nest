@@ -31,6 +31,6 @@ export class InvoiceEntity {
   })
   items: Commodity[];
 
-  @ManyToOne((type) => ContractEntity, contract => contract.invoices)
+  @ManyToOne((type) => ContractEntity, contract => contract.invoices, { cascade: true })
   contract: ContractEntity
 }

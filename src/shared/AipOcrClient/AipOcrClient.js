@@ -1,4 +1,4 @@
-const AipOcrClient = require("../aip-node-sdk").ocr;
+const AipOcrClient = require("../aip-node-sdk/src").ocr;
 
 const APP_ID = "23316260";
 const API_KEY = "MM2Iit2GFlLjux8XP8dpXE5b";

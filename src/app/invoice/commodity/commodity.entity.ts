@@ -10,27 +10,27 @@ export class Commodity {
   @ManyToOne((type) => InvoiceEntity, (invoice) => invoice.items)
   invoice: InvoiceEntity;
 
-  @Column()
+  @Column({ nullable: true })
   amount: string;
 
-  @Column()
+  @Column({ nullable: true })
   name: string;
 
-  @Column()
+  @Column({ nullable: true })
   type: string;
 
-  @Column()
+  @Column({ nullable: true })
   tax: string;
 
-  @Column()
+  @Column({ nullable: true })
   num: string;
 
-  @Column()
+  @Column({ nullable: true })
   taxRate: string;
 
-  @Column()
+  @Column({ nullable: true })
   unit: string;
 
-  @Column()
+  @Column({ nullable: true })
   price: string;
 }

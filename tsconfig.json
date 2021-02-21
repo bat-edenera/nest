@@ -1,15 +1,23 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "declaration": true,
+    "module": "CommonJS",
+    "declaration": false,
+    "noImplicitAny": false,
     "removeComments": true,
+    "noLib": false,
+    "lib": [
+      "es2017"
+    ],
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "target": "es6",
-    "sourceMap": true,
+    "sourceMap": false,
+    "importHelpers": true,
+    "esModuleInterop": true,
     "outDir": "./dist",
     "baseUrl": "./",
-    "incremental": true
-  }
+    "incremental": true,
+    "allowJs": true,
+  },
 }

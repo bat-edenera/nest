@@ -10,4 +10,14 @@ import { ContractItem } from './items/items.entity';
   providers: [ContractService],
   controllers: [ContractController]
 })
-export class ContractModule { }
+export class ContractModule {
+  //TODO :
+  constructor(private contractService: ContractService) {
+    this.contractService.findAll().then(value => {
+      if (value.length == 0) {
+        let contract = { name: '预置合同', items: [{ amount: '10', name: 'test', num: '10', type: 'hx-l', price: '2' }] }
+        this.contractService.create(contract)
+      }
+    })
+  }
+}

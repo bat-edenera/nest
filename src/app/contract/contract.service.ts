@@ -13,4 +13,7 @@ export class ContractService {
   findAll(): Promise<ContractEntity[]> {
     return this.ContractRespositry.find();
   }
+  create(contract): Promise<ContractEntity> {
+    return this.ContractRespositry.save(contract);
+  }
 }

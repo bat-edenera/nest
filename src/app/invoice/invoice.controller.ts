@@ -3,7 +3,7 @@ import { Body, Controller, Delete, Get, Param, Post, UseInterceptors, UploadedFi
 import { FileInterceptor } from '@nestjs/platform-express';
 import { InvoiceEntity } from './invoice.entity';
 import { InvoiceService } from './invoice.service';
-const OcrClient = require('../../shared/AipOcrClient');
+const OcrClient = require('../../shared/AipOcrClient/AipOcrClient');
 const fs = require('fs');
 
 @Controller('invoice')
@@ -26,6 +26,11 @@ export class InvoiceController {
       }
       return this.invoiceService.saveOcrResult(result, contractId)
     } catch (e) { }
+  }
+
+  @Get('check/:id')
+  check(@Param('id') id: string) {
+    return this.invoiceService.check(id);
   }
 
   @Post()

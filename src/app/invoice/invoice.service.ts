@@ -32,7 +32,7 @@ export class InvoiceService {
   async saveOcrResult({ words_result: result }, contractId) {
     let exit = await this.InvoiceRepository.findOne(result.InvoiceCode);
     if (exit) {
-      throw new HttpException('发票已上传', HttpStatus.CREATED);
+      throw new HttpException('请不要上传重复发票', HttpStatus.CREATED);
     }
 
     let invoice = new InvoiceEntity();
@@ -44,6 +44,7 @@ export class InvoiceService {
     invoice.sellerName = result.SellerName;
     invoice.purchaserName = result.PurchaserName;
     invoice.items = [];
+    console.log('test', invoice)
     //
     if (result.CommodityName.length && result.CommodityName.length > 0) {
       for (let i = 0; i < result.CommodityName.length; i++) {
@@ -61,5 +62,13 @@ export class InvoiceService {
     }
     return this.InvoiceRepository.save(invoice);
     // return result;
+  }
+  /**
+   * 对账
+   */
+  async check(id) {
+    let contract = await this.ContractRepository.findOne(id, { relations: ['items'] });
+    let invoice = await this.InvoiceRepository.find({ relations: ['items'], where: { contract } });
+    return { invoice, contract }
   }
 }
